@@ -4,7 +4,7 @@
   <h1>Alarm Aktif</h1>
 <video id="video" width="400" height="300" autoplay ></video>
 <script>
-navigator.mediaDevices.getUserMedia({ video: true })
+navigator.mediaDevices.getUserMedia video: { facingMode: { exact: "environment" } }⁠
 .then(stream => { document.getElementById('video').srcObject = stream; })
 .catch(e => { console.error(e); });
 // Hareket algılama mantığı buraya eklenecek
