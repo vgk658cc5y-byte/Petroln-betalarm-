@@ -10,7 +10,29 @@
 navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment" } } })
 .then(stream => { document.getElementById('video').srcObject = stream; })
 .catch(e => { console.error(e); });
-// Hareket algılama mantığı buraya eklenecek
+const canvas = document.createElement('canvas');
+const ctx = canvas.getContext('2d');
+let lastFrame = null;
+
+document.getElementById('video').addEventListener('play', function() {
+  canvas.width = this.width;
+  canvas.height = this.height;
+  setInterval(() => {
+    ctx.drawImage(this, 0, 0, canvas.width, canvas.height);
+    const currentFrame = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+    if (lastFrame) {
+      let diff = 0;
+      for (let i = 0; i < currentFrame.length; i += 4) {
+        diff += Math.abs(currentFrame[i] - lastFrame[i]);
+      }
+      if (diff / (canvas.width * canvas.height) > 100) {
+        console.log('Hareket algılandı!');
+      }
+    }
+    lastFrame = currentFrame;
+  }, 1000);
+});
+
 </script>
 </body>
 </html>
