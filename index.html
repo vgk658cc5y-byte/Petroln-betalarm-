@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html>
+<head>
+<title>Alarm Aktif</title>
+</head>
 <body>
-  <h1>Alarm Aktif</h1>
-<video id="video" width="400" height="300" autoplay ></video>
+<h1>Alarm Aktif</h1>
+<video id="video" width="400" height="300" autoplay playsinline></video>
 <script>
-navigator.mediaDevices.getUserMedia video: { facingMode: { exact: "environment" } }⁠
+navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment" } } })
 .then(stream => { document.getElementById('video').srcObject = stream; })
 .catch(e => { console.error(e); });
 // Hareket algılama mantığı buraya eklenecek
