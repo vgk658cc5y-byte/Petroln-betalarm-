@@ -45,7 +45,7 @@ let diff = 0;
 for (let i = 0; i < currentFrame.length; i += 4) {
 diff += Math.abs(currentFrame[i] - lastFrame[i]);
 }
-if (diff / (canvas.width * canvas.height) > 4) {
+if (diff / (canvas.width * canvas.height) > 7) {
 playSiren();
 }
 }
