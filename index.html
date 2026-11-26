@@ -1,15 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Alarm Aktif</title>
-</head>
-<body>
-<h1>Alarm Aktif</h1>
-<video id="video" width="400" height="300" autoplay playsinline></video>
-<script>
-navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment" } } })
-.then(stream => { document.getElementById('video').srcObject = stream; })
-.catch(e => { console.error(e); });
 const canvas = document.createElement('canvas');
 const ctx = canvas.getContext('2d');
 let lastFrame = null;
@@ -26,13 +14,9 @@ document.getElementById('video').addEventListener('play', function() {
         diff += Math.abs(currentFrame[i] - lastFrame[i]);
       }
       if (diff / (canvas.width * canvas.height) > 100) {
-        console.log('Hareket algılandı!');
+        alert('Hareket algılandı!');
       }
     }
     lastFrame = currentFrame;
   }, 1000);
 });
-
-</script>
-</body>
-</html>
