@@ -7,6 +7,19 @@
 <h1>Alarm Aktif</h1>
 <video id="video" width="400" height="300" autoplay playsinline></video>
 <script>
+function playSiren() {
+const ctx = new (window.AudioContext || window.webkitAudioContext)();
+const osc = ctx.createOscillator();
+const gain = ctx.createGain();
+osc.type = 'sawtooth';
+osc.frequency.setValueAtTime(440, ctx.currentTime);
+osc.frequency.linearRampToValueAtTime(880, ctx.currentTime + 0.1);
+gain.gain.setValueAtTime(0.5, ctx.currentTime);
+osc.connect(gain);
+gain.connect(ctx.destination);
+osc.start();
+osc.stop(ctx.currentTime + 0.2);
+}
 navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment" } } })
 .then(stream => {
 document.getElementById('video').srcObject = stream;
@@ -30,11 +43,11 @@ for (let i = 0; i < currentFrame.length; i += 4) {
 diff += Math.abs(currentFrame[i] - lastFrame[i]);
 }
 if (diff / (canvas.width * canvas.height) > 10) {
-alert('Hareket algılandı!');
+playSiren();
 }
 }
 lastFrame = currentFrame;
-}, 1000);
+}, 200);
 });
 </script>
 </body>
